@@ -1,0 +1,60 @@
+# SQL Injection (Authentication Bypass)
+
+## What is SQL Injection
+
+SQL Injection is a web security vulnerability that allows an attacker
+to interfere with the queries that an application makes to its database.
+
+It can allow attackers to bypass authentication, access sensitive data,
+or modify database contents.
+
+---
+
+## Example Query
+
+SELECT * FROM users
+WHERE username='admin' AND password='1234';
+
+---
+
+## Injection Payload
+
+' OR 1=1--
+
+Modified Query:
+
+SELECT * FROM users
+WHERE username='' OR 1=1--' AND password='1234';
+
+The condition `1=1` is always TRUE, so authentication is bypassed.
+
+---
+
+## Detection
+
+Common test characters:
+
+'
+"
+`
+
+If the application returns a SQL error,
+it may indicate SQL injection vulnerability.
+
+---
+
+## Impact
+
+- Authentication bypass
+- Data leakage
+- Database manipulation
+- Account takeover
+
+---
+
+## Remediation
+
+- Parameterized queries
+- Prepared statements
+- Input validation
+- Use ORM frameworks
