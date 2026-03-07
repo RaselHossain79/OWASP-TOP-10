@@ -1,0 +1,82 @@
+# SQL Injection - Column Count Detection
+
+When performing a UNION-based SQL injection attack, the attacker must first determine the number of columns returned by the original query.
+
+There are two common methods to determine this.
+
+---
+
+## Method 1: Using ORDER BY
+
+ORDER BY normally sorts query results, but attackers use it to detect the number of columns.
+
+### Example Query
+
+SELECT name, price, description
+FROM products
+WHERE category='Pets'
+
+Columns:
+1 → name
+2 → price
+3 → description
+
+### Payloads
+
+' ORDER BY 1--
+' ORDER BY 2--
+' ORDER BY 3--
+' ORDER BY 4--
+
+If `ORDER BY 4` causes an error, the query likely has **3 columns**.
+
+### Why this works
+
+ORDER BY sorts by column index.  
+If the specified column does not exist, the database returns an error.
+
+---
+
+## Method 2: Using UNION SELECT NULL
+
+Another technique is to use UNION with NULL values.
+
+### Payload attempts
+
+' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+
+The attacker increases the number of NULL values until the query executes successfully.
+
+If the query works with:
+
+' UNION SELECT NULL,NULL,NULL--
+
+Then the original query likely has **3 columns**.
+
+### Why NULL is used
+
+NULL is compatible with most data types and reduces the chance of type mismatch errors.
+
+---
+
+## Comparison
+
+ORDER BY:
+- Faster
+- Easier
+- Commonly used first
+
+UNION SELECT NULL:
+- Alternative method
+- May fail if UNION is filtered
+
+---
+
+## Pentester Workflow
+
+1. Detect SQL injection using `'`
+2. Determine column count (ORDER BY or UNION NULL)
+3. Use UNION SELECT to inject data
+4. Extract database information
