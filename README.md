@@ -1,6 +1,6 @@
-# OWASP Top 10 Learning Notes
+# SQL Injection Notes
 
-This repository contains my practical notes and lab exercises for **OWASP Top 10 Web Application Security Risks**.  
+This repository contains my practical notes and lab exercises for **SQL Injection Web Application Security Risks**.  
 The labs are based on **PortSwigger Web Security Academy** and other learning platforms.
 
 ---
@@ -9,7 +9,7 @@ The labs are based on **PortSwigger Web Security Academy** and other learning pl
 
 This repository is meant for:
 
-- Keeping **step-by-step notes** for each OWASP Top 10 vulnerability.
+- Keeping **step-by-step notes** for SQL Injection vulnerability.
 - Maintaining **payloads, techniques, and lab results**.
 - Quick reference for **future penetration testing and bug bounty practice**.
 
